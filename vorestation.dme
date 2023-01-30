@@ -4560,6 +4560,7 @@
 #include "modular_chomp\code\modules\mob\living\carbon\human\species\species.dm"
 #include "modular_chomp\code\modules\mob\living\carbon\human\species\outsider\vox.dm"
 #include "modular_chomp\code\modules\mob\living\carbon\human\species\station\station.dm"
+#include "modular_chomp\code\modules\mob\living\carbon\human\species\station\station_special_ch.dm"
 #include "modular_chomp\code\modules\mob\living\carbon\human\species\station\teshari.dm"
 #include "modular_chomp\code\modules\mob\living\carbon\human\species\station\protean\_protean_defines.dm"
 #include "modular_chomp\code\modules\mob\living\carbon\human\species\station\protean\protean_blob.dm"
