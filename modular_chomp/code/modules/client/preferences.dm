@@ -35,8 +35,9 @@
 
 	feedback_add_details("admin_verb","TAutoTranscore") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/preferences/proc/vanity_copy_to(var/mob/living/carbon/human/character, var/copy_flavour = TRUE, var/copy_ooc_notes = FALSE, var/from_protean)
+/datum/preferences/proc/vanity_copy_to(var/mob/living/carbon/human/character, var/copy_flavour = TRUE, var/copy_ooc_notes = FALSE, var/convert_to_prosthetics = FALSE)
 	//snowflake copy_to, does not copy anything but the vanity things
+	//does not check if the name is the same, do that in any proc that calls this proc
 	/*
 	name, nickname, flavour, OOC notes
 	gender, sex
@@ -44,7 +45,7 @@
 	custom say verbs
 	ears, wings, tail, hair, facial hair
 	ears colors, wings colors, tail colors
-	body color, prosthetics (if they have a prosthetic) (convert to DSI if protean and not prosthetic), eye color, hair color etc
+	body color, prosthetics (if they're a protean) (convert to DSI if protean and not prosthetic), eye color, hair color etc
 	markings
 	custom synth markings toggle, custom synth color toggle
 	digitigrade
@@ -133,40 +134,26 @@
 	character.set_gender(biological_gender)
 
 	// Destroy/cyborgize organs and limbs.
-	for(var/name in list(BP_HEAD, BP_L_HAND, BP_R_HAND, BP_L_ARM, BP_R_ARM, BP_L_FOOT, BP_R_FOOT, BP_L_LEG, BP_R_LEG, BP_GROIN, BP_TORSO))
-		var/status = organ_data[name]
-		var/obj/item/organ/external/O = character.organs_by_name[name]
-		if(O)
-			if(status == "amputated")
-				continue
-			else if(status == "cyborg")
-				replace_organ_with_prosthetic(character, name, rlimb_data[name])
-			else
-				if (from_protean)
+	if (convert_to_prosthetics) //should only really be run for proteans
+		for(var/name in list(BP_HEAD, BP_L_HAND, BP_R_HAND, BP_L_ARM, BP_R_ARM, BP_L_FOOT, BP_R_FOOT, BP_L_LEG, BP_R_LEG, BP_GROIN, BP_TORSO))
+			var/status = organ_data[name]
+			var/obj/item/organ/external/O = character.organs_by_name[name]
+			if(O)
+				if(status == "amputated")
+					continue
+				else if(status == "cyborg")
+						O.robotize(rlimb_data[name])
+				else
 					var/bodytype
 					var/datum/species/selected_species = GLOB.all_species[species]
 					if(selected_species.selects_bodytype)
 						bodytype = custom_base
 					else
 						bodytype = selected_species.get_bodytype()
-
-
-	for(var/name in list(O_HEART,O_EYES,O_VOICE,O_LUNGS,O_LIVER,O_KIDNEYS,O_SPLEEN,O_STOMACH,O_INTESTINE,O_BRAIN))
-		var/status = organ_data[name]
-		if(!status)
-			continue
-		var/obj/item/organ/I = character.internal_organs_by_name[name]
-		if(istype(I, /obj/item/organ/internal/brain))
-			var/obj/item/organ/external/E = character.get_organ(I.parent_organ)
-			if(E.robotic < ORGAN_ASSISTED)
-				continue
-		if(I)
-			if(status == "assisted")
-				I.mechassist()
-			else if(status == "mechanical")
-				I.robotize()
-			else if(status == "digital")
-				I.digitize()
+					var/dsi_company = GLOB.dsi_to_species[bodytype]
+					if (!dsi_company)
+						dsi_company = "DSI - Synthetic"
+					O.robotize(dsi_company)
 
 	for(var/N in character.organs_by_name)
 		var/obj/item/organ/external/O = character.organs_by_name[N]
@@ -199,18 +186,81 @@
 				else
 					body_descriptors[entry] = CLAMP(last_descriptors[entry], 1, LAZYLEN(descriptor.standalone_value_descriptors))
 
+	if (copy_flavour)
+		character.flavor_texts["general"]	= flavor_texts["general"]
+		character.flavor_texts["head"]		= flavor_texts["head"]
+		character.flavor_texts["face"]		= flavor_texts["face"]
+		character.flavor_texts["eyes"]		= flavor_texts["eyes"]
+		character.flavor_texts["torso"]		= flavor_texts["torso"]
+		character.flavor_texts["arms"]		= flavor_texts["arms"]
+		character.flavor_texts["hands"]		= flavor_texts["hands"]
+		character.flavor_texts["legs"]		= flavor_texts["legs"]
+		character.flavor_texts["feet"]		= flavor_texts["feet"]
+	if (copy_ooc_notes)
+		character.ooc_notes 				= metadata
 
-	if(icon_updates)
-		character.force_update_limbs()
-		character.update_icons_body()
-		character.update_mutations()
-		character.update_underwear()
-		character.update_hair()
+	character.weight			= weight_vr
+	character.weight_gain		= weight_gain
+	character.weight_loss		= weight_loss
+	character.fuzzy				= fuzzy
+	character.offset_override	= offset_override //CHOMPEdit
+	character.voice_freq		= voice_freq
+	character.resize(size_multiplier, animate = FALSE, ignore_prefs = TRUE)
+	if(!voice_sound)
+		character.voice_sounds_list = talk_sound
+	else
+		switch(voice_sound)
+			if("beep-boop")
+				character.voice_sounds_list = talk_sound
+			if("goon speak 1")
+				character.voice_sounds_list = goon_speak_one_sound
+			if("goon speak 2")
+				character.voice_sounds_list = goon_speak_two_sound
+			if("goon speak 3")
+				character.voice_sounds_list = goon_speak_three_sound
+			if("goon speak 4")
+				character.voice_sounds_list = goon_speak_four_sound
+			if("goon speak blub")
+				character.voice_sounds_list = goon_speak_blub_sound
+			if("goon speak bottalk")
+				character.voice_sounds_list = goon_speak_bottalk_sound
+			if("goon speak buwoo")
+				character.voice_sounds_list = goon_speak_buwoo_sound
+			if("goon speak cow")
+				character.voice_sounds_list = goon_speak_cow_sound
+			if("goon speak lizard")
+				character.voice_sounds_list = goon_speak_lizard_sound
+			if("goon speak pug")
+				character.voice_sounds_list = goon_speak_pug_sound
+			if("goon speak pugg")
+				character.voice_sounds_list = goon_speak_pugg_sound
+			if("goon speak roach")
+				character.voice_sounds_list = goon_speak_roach_sound
+			if("goon speak skelly")
+				character.voice_sounds_list = goon_speak_skelly_sound
 
-/datum/preferences/proc/replace_organ_with_prosthetic(var/mob/living/carbon/human/character, var/part, var/company)
-	if (!character || !part || !company)
-		return
-	var/obj/item/organ/external/eo = organs_by_name[choice]
-	if(!eo || istype(eo, /obj/item/organ/external/stump))
-		return
-	eo.robotize(company)
+	character.species?.blood_color = blood_color
+
+	var/datum/species/selected_species = GLOB.all_species[species]
+	var/bodytype_selected
+	if(selected_species.selects_bodytype)
+		bodytype_selected = custom_base
+	else
+		bodytype_selected = selected_species.get_bodytype(character)
+
+	character.dna.base_species = bodytype_selected
+	character.species.base_species = bodytype_selected
+	if (istype(character.species, /datum/species/shapeshifter))
+		wrapped_species_by_ref["\ref[character]"] = bodytype_selected
+
+	character.custom_species	= custom_species
+	character.custom_say		= lowertext(trim(custom_say))
+	character.custom_ask		= lowertext(trim(custom_ask))
+	character.custom_whisper	= lowertext(trim(custom_whisper))
+	character.custom_exclaim	= lowertext(trim(custom_exclaim))
+
+	character.digitigrade = selected_species.digi_allowed ? digitigrade : 0
+
+	character.dna.ResetUIFrom(character)
+	character.force_update_limbs()
+	character.regenerate_icons()
