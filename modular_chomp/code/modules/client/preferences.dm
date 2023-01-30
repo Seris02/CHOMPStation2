@@ -35,7 +35,7 @@
 
 	feedback_add_details("admin_verb","TAutoTranscore") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/preferences/proc/vanity_copy_to(var/mob/living/carbon/human/character, var/copy_flavour = TRUE, var/copy_ooc_notes = FALSE, var/convert_to_prosthetics = FALSE)
+/datum/preferences/proc/vanity_copy_to(var/mob/living/carbon/human/character, var/copy_name, var/copy_flavour = TRUE, var/copy_ooc_notes = FALSE, var/convert_to_prosthetics = FALSE)
 	//snowflake copy_to, does not copy anything but the vanity things
 	//does not check if the name is the same, do that in any proc that calls this proc
 	/*
@@ -51,18 +51,19 @@
 	digitigrade
 	blood color
 	*/
-	if(config.humans_need_surnames)
-		var/firstspace = findtext(real_name, " ")
-		var/name_length = length(real_name)
-		if(!firstspace)	//we need a surname
-			real_name += " [pick(last_names)]"
-		else if(firstspace == name_length)
-			real_name += "[pick(last_names)]"
-	character.real_name = real_name
-	character.name = character.real_name
-	if(character.dna)
-		character.dna.real_name = character.real_name
-	character.nickname = nickname
+	if (copy_name)
+		if(config.humans_need_surnames)
+			var/firstspace = findtext(real_name, " ")
+			var/name_length = length(real_name)
+			if(!firstspace)	//we need a surname
+				real_name += " [pick(last_names)]"
+			else if(firstspace == name_length)
+				real_name += "[pick(last_names)]"
+		character.real_name = real_name
+		character.name = character.real_name
+		if(character.dna)
+			character.dna.real_name = character.real_name
+		character.nickname = nickname
 	character.gender = biological_gender
 	character.identifying_gender = identifying_gender
 

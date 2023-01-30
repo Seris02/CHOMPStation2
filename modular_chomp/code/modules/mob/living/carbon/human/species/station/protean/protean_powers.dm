@@ -132,7 +132,7 @@
 		if(do_after(caller, 40,exclusive = TASK_ALL_EXCLUSIVE))
 			if(client.prefs)	//Make sure we didn't d/c
 				var/obj/item/weapon/rig/protean/Rig = species?:OurRig
-				GetAppearanceFromPrefs(flavour, oocnotes)
+				caller.client?.prefs?.vanity_copy_to(caller, FALSE, flavour, oocnotes, TRUE)
 				species?:OurRig = Rig	//Get a reference to our Rig and put it back after reassembling
 				caller.visible_message("<span class='notify'>[caller] adopts a new form!</span>", "<span class='danger'>You have reassembled.</span>")
 
