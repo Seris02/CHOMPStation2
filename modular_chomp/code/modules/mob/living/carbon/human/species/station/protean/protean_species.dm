@@ -136,6 +136,10 @@
 	if(saved_nif)
 		saved_nif.quick_implant(H)
 
+/datum/species/protean/get_race_key()
+	var/datum/species/real = GLOB.all_species[base_species]
+	return real.race_key
+
 /datum/species/protean/get_bodytype(var/mob/living/carbon/human/H)
 	if(!H || base_species == name) return ..()
 	var/datum/species/S = GLOB.all_species[base_species]
@@ -148,6 +152,36 @@
 
 /datum/species/protean/get_valid_shapeshifter_forms(var/mob/living/carbon/human/H)
 	return GLOB.playable_species
+
+/datum/species/protean/get_tail(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_tail(H)
+
+/datum/species/protean/get_tail_animation(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_tail_animation(H)
+
+/datum/species/protean/get_tail_hair(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_tail_hair(H)
+
+/datum/species/protean/get_blood_mask(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_blood_mask(H)
+
+/datum/species/protean/get_damage_mask(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_damage_mask(H)
+
+/datum/species/protean/get_damage_overlays(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_damage_overlays(H)
 
 /datum/species/protean/handle_post_spawn(var/mob/living/carbon/human/H)
 	..()

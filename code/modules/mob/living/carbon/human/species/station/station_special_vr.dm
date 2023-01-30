@@ -310,6 +310,46 @@
 	var/datum/species/real = GLOB.all_species[base_species]
 	return real.race_key
 
+/datum/species/xenochimera/get_bodytype(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_bodytype(H)
+
+/datum/species/xenochimera/get_icobase(var/mob/living/carbon/human/H, var/get_deform)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_icobase(H, get_deform)
+
+/datum/species/xenochimera/get_tail(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_tail(H)
+
+/datum/species/xenochimera/get_tail_animation(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_tail_animation(H)
+
+/datum/species/xenochimera/get_tail_hair(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_tail_hair(H)
+
+/datum/species/xenochimera/get_blood_mask(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_blood_mask(H)
+
+/datum/species/xenochimera/get_damage_mask(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_damage_mask(H)
+
+/datum/species/xenochimera/get_damage_overlays(var/mob/living/carbon/human/H)
+	if(!H || base_species == name) return ..()
+	var/datum/species/S = GLOB.all_species[base_species]
+	return S.get_damage_overlays(H)
+
 /datum/species/xenochimera/proc/update_xenochimera_hud(var/mob/living/carbon/human/H, var/danger, var/feral)
 	if(H.xenochimera_danger_display)
 		H.xenochimera_danger_display.invisibility = 0
@@ -445,7 +485,7 @@
 
 	catalogue_data = list(/datum/category_item/catalogue/fauna/vulpkanin)
 
-	spawn_flags		 = SPECIES_CAN_JOIN | SPECIES_IS_WHITELISTED | SPECIES_WHITELIST_SELECTABLE//Whitelisted as restricted is broken. ChompEdit;renable 
+	spawn_flags		 = SPECIES_CAN_JOIN | SPECIES_IS_WHITELISTED | SPECIES_WHITELIST_SELECTABLE//Whitelisted as restricted is broken. ChompEdit;renable
 	appearance_flags = HAS_HAIR_COLOR | HAS_SKIN_COLOR | HAS_EYE_COLOR
 
 	flesh_color = "#AFA59E"
