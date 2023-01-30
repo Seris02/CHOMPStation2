@@ -142,7 +142,7 @@
 				if(status == "amputated")
 					continue
 				else if(status == "cyborg")
-						O.robotize(rlimb_data[name])
+					O.robotize(rlimb_data[name])
 				else
 					var/bodytype
 					var/datum/species/selected_species = GLOB.all_species[species]
