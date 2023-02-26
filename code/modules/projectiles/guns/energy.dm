@@ -28,6 +28,9 @@
 
 /obj/item/weapon/gun/energy/New()
 	..()
+	var/static/list/gun_icons = icon_states('icons/obj/gun_ch.dmi')
+	if (!(icon_state in gun_icons))
+		icon = 'icons/obj/gun.dmi'
 	if(self_recharge)
 		power_supply = new /obj/item/weapon/cell/device/weapon(src)
 		START_PROCESSING(SSobj, src)
@@ -114,8 +117,8 @@
 	if(!power_supply) return null
 	if(!ispath(projectile_type)) return null
 	if(!power_supply.checked_use(charge_cost)) return null
-	var/mob/living/M = loc // TGMC Ammo HUD 
-	if(istype(M)) // TGMC Ammo HUD 
+	var/mob/living/M = loc // TGMC Ammo HUD
+	if(istype(M)) // TGMC Ammo HUD
 		M?.hud_used.update_ammo_hud(M, src)
 	return new projectile_type(src)
 
