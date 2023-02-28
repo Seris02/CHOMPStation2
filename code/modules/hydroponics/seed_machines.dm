@@ -190,7 +190,7 @@
 				SSplants.seeds[seed.seed.name] = seed.seed
 
 			seed.update_seed()
-			visible_message("\icon[src][bicon(src)] [src] beeps and spits out [seed].")
+			visible_message("<span class='filternotice'>\icon[src][bicon(src)] [src] beeps and spits out [seed].</span>")
 
 			seed = null
 			return TRUE
@@ -199,7 +199,7 @@
 			if(!loaded_disk)
 				return
 			loaded_disk.forceMove(get_turf(src))
-			visible_message("\icon[src][bicon(src)] [src] beeps and spits out [loaded_disk].")
+			visible_message("<span class='filternotice'>\icon[src][bicon(src)] [src] beeps and spits out [loaded_disk].</span>")
 			loaded_disk = null
 			return TRUE
 

@@ -531,7 +531,7 @@
 			return
 
 		if (!getBruteLoss())
-			to_chat(user, "<span class='filter_notice'>Nothing to fix here!")
+			to_chat(user, "<span class='filter_notice'>Nothing to fix here!</span>")
 			return
 		var/obj/item/weapon/weldingtool/WT = W
 		if (WT.remove_fuel(0))
@@ -960,7 +960,7 @@
 			if(istype(module_state_3,/obj/item/borg/sight))
 				sight_mode |= module_state_3:sight_mode
 		else
-			to_chat(src, "<span class='filter_notice'>You need to disable a module first!")
+			to_chat(src, "<span class='filter_notice'>You need to disable a module first!</span>")
 		installed_modules()
 		return 1
 
