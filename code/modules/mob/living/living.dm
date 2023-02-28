@@ -96,7 +96,7 @@
 	if(!..())
 		return 0
 
-	usr.visible_message("<b>[src]</b> points to [A]")
+	usr.visible_message("<span class='filter_notice'><b>[src]</b> points to [A].</span>")
 	return 1
 
 /mob/living/verb/succumb()
@@ -773,7 +773,7 @@
 	set category = "IC"
 
 	resting = !resting
-	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
+	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
 	update_canmove()
 
 //called when the mob receives a bright flash

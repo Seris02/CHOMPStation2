@@ -126,7 +126,7 @@ SUBSYSTEM_DEF(plants)
 
 	// Caching
 	var/list/currentrun = src.currentrun
-	
+
 	while(currentrun.len)
 		var/obj/effect/plant/P = currentrun[currentrun.len]
 		--currentrun.len
