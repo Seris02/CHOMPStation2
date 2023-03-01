@@ -588,18 +588,20 @@
 					for (var/datum/data/record/R in data_core.general)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"best"))
-								to_chat(usr, "<b>Name:</b> [R.fields["name"]]")
-								to_chat(usr, "<b>Assignment:</b> [R.fields["real_rank"]] ([R.fields["rank"]])")
-								to_chat(usr, "<b>Home System:</b> [R.fields["home_system"]]")
-								to_chat(usr, "<b>Citizenship:</b> [R.fields["citizenship"]]")
-								to_chat(usr, "<b>Primary Employer:</b> [R.fields["personal_faction"]]")
-								to_chat(usr, "<b>Religious Beliefs:</b> [R.fields["religion"]]")
-								to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
-								to_chat(usr, "<a href='?src=\ref[src];emprecordComment=`'>\[View Comment Log\]</a>")
+								var/list/emp_hud_text = list()
+								emp_hud_text += "<b>Name:</b> [R.fields["name"]]"
+								emp_hud_text += "<b>Assignment:</b> [R.fields["real_rank"]] ([R.fields["rank"]])"
+								emp_hud_text += "<b>Home System:</b> [R.fields["home_system"]]"
+								emp_hud_text += "<b>Citizenship:</b> [R.fields["citizenship"]]"
+								emp_hud_text += "<b>Primary Employer:</b> [R.fields["personal_faction"]]"
+								emp_hud_text += "<b>Religious Beliefs:</b> [R.fields["religion"]]"
+								emp_hud_text += "<b>Notes:</b> [R.fields["notes"]]"
+								emp_hud_text += "<a href='?src=\ref[src];emprecordComment=`'>\[View Comment Log\]</a>"
+								to_chat(usr, "<span class='filter_notice'>[jointext(emp_hud_text, "<br>")]</span>")
 								read = 1
 
 			if(!read)
-				to_chat(usr, "<font color='red'>Unable to locate a data core entry for this person.</font>")
+				to_chat(usr, "<span class='filter_notice'><font color='red'>Unable to locate a data core entry for this person.</font></span>")
 
 	if (href_list["emprecordComment"])
 		if(hasHUD(usr,"best"))
@@ -622,11 +624,11 @@
 									to_chat(usr, "[R.fields[text("com_[]", counter)]]")
 									counter++
 								if (counter == 1)
-									to_chat(usr, "No comment found")
-								to_chat(usr, "<a href='?src=\ref[src];emprecordadd=`'>\[Add comment\]</a>")
+									to_chat(usr, "<span class='filter_notice'>No comment found.</span>")
+								to_chat(usr, "<span class='filter_notice'><a href='?src=\ref[src];emprecordadd=`'>\[Add comment\]</a></span>")
 
 			if(!read)
-				to_chat(usr, "<font color='red'>Unable to locate a data core entry for this person.</font>")
+				to_chat(usr, "<span class='filter_notice'><font color='red'>Unable to locate a data core entry for this person.</font></span>")
 
 	if (href_list["emprecordadd"])
 		if(hasHUD(usr,"best"))
