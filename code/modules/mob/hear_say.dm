@@ -252,7 +252,7 @@
 			else			adverb = " a very lengthy message"
 		message = "<span class='game say'><B>[speaker]</B> [verb][adverb].</span>"
 	else
-		message = "<span class='game say'><B>[speaker]</B> [adverb].</span>"
+		message = "<span class='game say'><B>[speaker]</B> [verb].</span>"
 
 	show_message(message, type = speech_type) // Type 1 is visual message
 

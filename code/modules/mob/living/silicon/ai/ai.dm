@@ -799,16 +799,12 @@ var/list/ai_verbs_default = list(
 	set desc = "Toggles hologram movement based on moving with your virtual eye."
 
 	hologram_follow = !hologram_follow
-<<<<<<< HEAD
 	//VOREStation Add - Required to stop movement because we use walk_to(wards) in hologram.dm
 	if(holo)
 		var/obj/effect/overlay/aiholo/hologram = holo.masters[src]
 		walk(hologram, 0)
 	//VOREStation Add End
-	to_chat(usr, "Your hologram will [hologram_follow ? "follow" : "no longer follow"] you now.")
-=======
 	to_chat(usr, "<span class='filter_notice'>Your hologram will [hologram_follow ? "follow" : "no longer follow"] you now.</span>")
->>>>>>> 39a47ba845 (better filters for vchat, unsorted chat filter)
 
 
 /mob/living/silicon/ai/proc/check_unable(var/flags = 0, var/feedback = 1)
