@@ -21,6 +21,7 @@
 	var/obj/item/weapon/card/id/card // Inserted Id card
 	var/obj/item/device/radio/intercom/announce	// Integreated announcer
 
+	var/loaded = FALSE
 
 /obj/machinery/computer/timeclock/New()
 	announce = new /obj/item/device/radio/intercom(src)
@@ -50,11 +51,17 @@
 	else
 		set_light(light_range_on, light_power_on)
 
+/obj/machinery/computer/timeclock/proc/set_ready()
+	if (card)
+		loaded = TRUE
+		SStgui.update_uis(src)
+
 /obj/machinery/computer/timeclock/attackby(obj/I, mob/user)
 	if(istype(I, /obj/item/weapon/card/id))
 		if(!card && user.unEquip(I))
 			I.forceMove(src)
 			card = I
+			addtimer(CALLBACK(src, .proc/set_ready), 3 SECONDS)
 			SStgui.update_uis(src)
 			update_icon()
 		else if(card)
@@ -86,6 +93,7 @@
 	data["card"] = null
 	data["assignment"] = null
 	data["job_datum"] = null
+	data["loaded"] = loaded
 	data["allow_change_job"] = null
 	data["job_choices"] = null
 	if(card)
@@ -118,12 +126,14 @@
 		if("id")
 			if(card)
 				usr.put_in_hands(card)
+				loaded = FALSE
 				card = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card/id) && usr.unEquip(I))
 					I.forceMove(src)
 					card = I
+					addtimer(CALLBACK(src, .proc/set_ready), 3 SECONDS)
 			update_icon()
 			return TRUE
 		if("switch-to-onduty-rank")
@@ -131,6 +141,7 @@
 				if(checkCardCooldown())
 					makeOnDuty(params["switch-to-onduty-rank"], params["switch-to-onduty-assignment"])
 					usr.put_in_hands(card)
+					loaded = FALSE
 					card = null
 			update_icon()
 			return TRUE
@@ -139,6 +150,7 @@
 				if(checkCardCooldown())
 					makeOffDuty()
 					usr.put_in_hands(card)
+					loaded = FALSE
 					card = null
 			update_icon()
 			return TRUE
