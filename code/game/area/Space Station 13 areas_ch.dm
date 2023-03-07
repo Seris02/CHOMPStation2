@@ -118,3 +118,80 @@
 /area/rnd/research/particleaccelerator
 	name = "\improper Particle Accelerator Lab"
 	icon_state = "toxlab"
+
+// CC Expansion for more granular area control. Does nothing really, but allows differing ambience per-area.
+/area/centcom
+	name = "\improper CentCom"
+	icon_state = "centcom"
+	requires_power = 0
+	dynamic_lighting = 1
+	flags = AREA_FLAG_IS_NOT_PERSISTENT
+
+/area/centcom/security
+	name = "\improper CentCom Security"
+	icon_state = "centcom_security"
+
+/area/centcom/medical
+	name = "\improper CentCom Medical"
+	icon_state = "centcom_medical"
+
+/area/centcom/medical/lobby
+	name = "\improper CentCom Medbay Reception"
+
+/area/centcom/medical/chemistry
+	name = "\improper CentCom Medbay Chemistry"
+
+/area/centcom/medical/storage
+	name = "\improper CentCom Medbay Storage"
+
+/area/centcom/medical/operating_room_1
+	name = "\improper CentCom Medbay OR 1"
+
+/area/centcom/medical/operating_room_2
+	name = "\improper CentCom Medbay OR 2"
+
+/area/centcom/medical/morgue
+	name = "\improper CentCom Morgue"
+
+/area/centcom/medical/morgue
+	name = "\improper CentCom Morgue"
+
+/area/centcom/command
+	name = "\improper CentCom Command" //Central Command Command totally isn't RAS Syndrome in action.
+	icon_state = "centcom_command"
+	ambience = AMBIENCE_HIGHSEC
+
+/area/centcom/ai
+	name = "\improper CentCom AI" //Central Command Command totally isn't RAS Syndrome in action.
+	icon_state = "centcom_command"
+	ambience = AMBIENCE_HIGHSEC
+
+/area/centcom/main_hall
+	name = "\improper Main Hallway"
+	icon_state = "centcom_hallway1"
+
+/area/centcom/dorms
+	name = "\improper Centcomm Dorms"
+	icon_state = "centcom_crew"
+
+/area/centcom/bar
+	name = "\improper CentCom Bar"
+	icon_state = "centcom_crew"
+
+/area/centcom/kitchen
+	name = "\improper CentCom Kitchen"
+	icon_state = "centcom_crew"
+
+
+/area/centcom/restaurant
+	name = "\improper CentCom Restaurant"
+	icon_state = "centcom_crew"
+
+/area/centcom/bathroom
+	name = "\improper CentCom Bathroom"
+	icon_state = "centcom_crew"
+	sound_env = SMALL_ENCLOSED
+
+/area/centcom/garden
+	name = "\improper CentCom Garden"
+	icon_state = "centcom_crew"
