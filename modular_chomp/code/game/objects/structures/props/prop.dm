@@ -11,6 +11,15 @@
 	icon_state = "apc0"
 	density = FALSE // Not dense, you can pass through APCs + cables
 
+/obj/structure/prop/machinery/power/apc/New()
+	..()
+	if (!pixel_x && !pixel_y)
+		offset_apc()
+
+/obj/structure/prop/machinery/power/apc/proc/offset_apc()
+	pixel_x = (dir & 3) ? 0 : (dir == 4 ? 26 : -26)
+	pixel_y = (dir & 3) ? (dir == 1 ? 26 : -26) : 0
+
 /obj/structure/prop/machinery/power/apc/critical
 
 /obj/structure/prop/machinery/power/apc/high
@@ -158,6 +167,15 @@ By design, d1 is the smallest direction and d2 is the highest
 	anchored = TRUE
 	unacidable = TRUE
 
+/obj/structure/prop/machinery/firealarm/New()
+	..()
+	if (!pixel_x && !pixel_y)
+		offset_alarm()
+
+/obj/structure/prop/machinery/firealarm/proc/offset_alarm()
+	pixel_x = (dir & 3) ? 0 : (dir == 4 ? 26 : -26)
+	pixel_y = (dir & 3) ? (dir == 1 ? -26 : 26) : 0
+
 /obj/structure/prop/machinery/firealarm/alarms_hidden
 
 /obj/structure/prop/machinery/firealarm/angled
@@ -185,6 +203,15 @@ By design, d1 is the smallest direction and d2 is the highest
 	vis_flags = VIS_HIDE // They have an emissive that looks bad in openspace due to their wall-mounted nature
 	anchored = TRUE
 	unacidable = TRUE
+
+/obj/structure/prop/machinery/alarm/New()
+	..()
+	if (!pixel_x && !pixel_y)
+		offset_airalarm()
+
+/obj/structure/prop/machinery/alarm/proc/offset_airalarm()
+	pixel_x = (dir & 3) ? 0 : (dir == 4 ? -26 : 26)
+	pixel_y = (dir & 3) ? (dir == 1 ? -26 : 26) : 0
 
 /obj/structure/prop/machinery/alarm/nobreach
 
