@@ -4,6 +4,8 @@ var/list/shell_module_blacklist = list(
 	)
 var/list/latejoin_gatewaystation = list()
 var/list/latejoin_plainspath = list()
+var/list/latejoin_cc = list()
+var/list/roundstart_cc = list()
 
 var/list/talk_sounds = list()
 

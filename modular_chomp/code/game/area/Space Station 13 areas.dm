@@ -6,4 +6,4 @@
 	name = "\improper Arrival Shuttle One"
 
 /area/shuttle/arrivals/shuttletwo
-	name = "\improper Arrival Shuttle One"
+	name = "\improper Arrival Shuttle Two"

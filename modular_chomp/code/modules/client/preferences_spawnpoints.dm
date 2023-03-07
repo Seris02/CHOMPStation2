@@ -32,3 +32,11 @@
 /datum/spawnpoint/plainspath/New()
 	..()
 	turfs = latejoin_plainspath
+
+/datum/spawnpoint/ccspawn
+	display_name = "Centcom Arrivals"
+	msg = "has arrived on Centcom"
+
+/datum/spawnpoint/ccspawn/New()
+	..()
+	turfs = latejoin_cc

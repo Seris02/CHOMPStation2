@@ -363,25 +363,29 @@ var/global/datum/controller/occupations/job_master
 
 	if(!joined_late)
 		var/obj/S = null
-		var/list/possible_spawns = list()
-		for(var/obj/effect/landmark/start/sloc in landmarks_list)
-			if(sloc.name != rank)	continue
-			if(locate(/mob/living) in sloc.loc)	continue
-			possible_spawns.Add(sloc)
-		if(possible_spawns.len)
-			S = pick(possible_spawns)
-		if(!S)
-			S = locate("start*[rank]") // use old stype
-		if(istype(S, /obj/effect/landmark/start) && istype(S.loc, /turf))
-			H.forceMove(S.loc)
+		var/turf/cc = pick(roundstart_cc) //CHOMPEdit addition
+		if (cc && H.client?.prefs?.spawnpoint == "Centcom Arrivals")
+			H.forceMove(cc)
 		else
-			var/list/spawn_props = LateSpawn(H.client, rank)
-			var/turf/T = spawn_props["turf"]
-			if(!T)
-				to_chat(H, "<span class='critical'>You were unable to be spawned at your chosen late-join spawnpoint. Please verify your job/spawn point combination makes sense, and try another one.</span>")
-				return
+			var/list/possible_spawns = list()
+			for(var/obj/effect/landmark/start/sloc in landmarks_list)
+				if(sloc.name != rank)	continue
+				if(locate(/mob/living) in sloc.loc)	continue
+				possible_spawns.Add(sloc)
+			if(possible_spawns.len)
+				S = pick(possible_spawns)
+			if(!S)
+				S = locate("start*[rank]") // use old stype
+			if(istype(S, /obj/effect/landmark/start) && istype(S.loc, /turf))
+				H.forceMove(S.loc)
 			else
-				H.forceMove(T)
+				var/list/spawn_props = LateSpawn(H.client, rank)
+				var/turf/T = spawn_props["turf"]
+				if(!T)
+					to_chat(H, "<span class='critical'>You were unable to be spawned at your chosen late-join spawnpoint. Please verify your job/spawn point combination makes sense, and try another one.</span>")
+					return
+				else
+					H.forceMove(T)
 
 		// Moving wheelchair if they have one
 		if(H.buckled && istype(H.buckled, /obj/structure/bed/chair/wheelchair))
@@ -658,6 +662,7 @@ var/global/datum/controller/occupations/job_master
 	var/obj/belly/vore_spawn_gut
 	var/mob/living/prey_to_nomph
 	var/obj/item/item_to_be
+	var/manifest_addition = TRUE
 
 	//CHOMPEdit -  Remove fail_deadly addition on offmap_spawn
 
@@ -878,8 +883,11 @@ var/global/datum/controller/occupations/job_master
 			else
 				spawnpos = spawntypes[C.prefs.spawnpoint]
 
+		if (C.prefs.spawnpoint == "Centcom Arrivals") //CHOMPEdit addition
+			manifest_addition = FALSE
+
 	//We will return a list key'd by "turf" and "msg"
-	. = list("turf","msg", "voreny", "prey", "itemtf") //CHOMPEdit - Item TF spawnpoints
+	. = list("turf","msg", "voreny", "prey", "itemtf", "manifest" = manifest_addition) //CHOMPEdit - Item TF spawnpoints
 	if(vore_spawn_gut)
 		.["voreny"] = vore_spawn_gut
 	if(prey_to_nomph)

@@ -433,6 +433,7 @@
 	var/turf/T = join_props["turf"]
 	var/join_message = join_props["msg"]
 	var/announce_channel = join_props["channel"] || "Common"
+	var/manifest_addition = join_props["manifest"]
 
 	if(!T || !join_message)
 		return 0
@@ -489,10 +490,12 @@
 			ticker.minds += character.mind
 	//CHOMPEdit End
 	else if(J.mob_type & JOB_SILICON)
-		AnnounceCyborg(character, rank, join_message, announce_channel, character.z)
+		if (manifest_addition)
+			AnnounceCyborg(character, rank, join_message, announce_channel, character.z)
 	else
-		AnnounceArrival(character, rank, join_message, announce_channel, character.z)
-		data_core.manifest_inject(character)
+		if (manifest_addition)
+			AnnounceArrival(character, rank, join_message, announce_channel, character.z)
+			data_core.manifest_inject(character)
 		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 	var/gut = join_props["voreny"]
 	var/mob/living/prey = join_props["prey"]
