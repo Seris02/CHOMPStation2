@@ -261,6 +261,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/prop/machinery/atmospherics/unary/vent_pump
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
+	var/id_tag = null
 
 	name = "Air Vent"
 	desc = "Has a valve and pump attached to it"
@@ -270,10 +271,11 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/prop/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "Large Air Vent"
-
+	var/id_tag = null
 /obj/structure/prop/machinery/atmospherics/unary/vent_scrubber
 	icon = 'icons/atmos/vent_scrubber.dmi'
 	icon_state = "map_scrubber_off"
+	var/id_tag = null
 
 	name = "Air Scrubber"
 	desc = "Has a valve and pump attached to it"

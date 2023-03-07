@@ -3,6 +3,7 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "Floor3"
 	dynamic_lighting = TRUE
+	skip_init = FALSE // We don't want to skip init bc we need objects to layer underneath us. This will increase overhead slightly.
 
 	// Flooring data.
 	var/flooring_override
