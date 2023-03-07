@@ -142,7 +142,6 @@
 	density = FALSE
 	layer = ATMOS_LAYER
 	plane = PLATING_PLANE
-	var/id_tag
 
 // Vents/Pipes + Scrubbers/Pumps
 /obj/structure/prop/machinery/atmospherics/unary/vent_pump
@@ -151,6 +150,7 @@
 
 	name = "Air Vent"
 	desc = "Has a valve and pump attached to it"
+	var/id_tag
 
 /obj/structure/prop/machinery/atmospherics/unary/vent_pump/New()
 	..()
@@ -168,6 +168,7 @@
 
 	name = "Air Scrubber"
 	desc = "Has a valve and pump attached to it"
+	var/id_tag
 
 /obj/structure/prop/machinery/atmospherics/unary/vent_scrubber/New()
 	..()
