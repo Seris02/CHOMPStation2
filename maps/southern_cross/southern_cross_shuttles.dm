@@ -164,24 +164,64 @@
 	base_turf = /turf/space
 
 // Arrivals Shuttle
-/datum/shuttle/autodock/ferry/arrivals/southern_cross
+// CHOMPEdit Start: Arrivals Ferry to/from CC
+/datum/shuttle/autodock/ferry/arrivals/southern_cross/shuttle1
 	name = "Arrivals"
 	location = FERRY_LOCATION_OFFSITE
-	shuttle_area = /area/shuttle/arrival/pre_game
-	landmark_offsite = "arrivals_offsite"
-	landmark_station = "arrivals_station"
-	docking_controller_tag = "arrivals_shuttle"
+	shuttle_area = /area/shuttle/arrivals/shuttleone
+	landmark_offsite = "arrivals_offsite_dock1"
+	landmark_transition = "arrivals_transit1"
+	landmark_station = "arrivals_station_one"
+	docking_controller_tag = "arrivals_shuttle1"
 
-/obj/effect/shuttle_landmark/southern_cross/arrivals_offsite
-	name = "Transit to Station"
-	landmark_tag = "arrivals_offsite"
+/datum/shuttle/autodock/ferry/arrivals/southern_cross/shuttle2
+	name = "Arrivals"
+	location = FERRY_LOCATION_OFFSITE
+	shuttle_area = /area/shuttle/arrivals/shuttletwo
+	landmark_offsite = "arrivals_offsite_dock2"
+	landmark_transition = "arrivals_transit2"
+	landmark_station = "arrivals_station_two"
+	docking_controller_tag = "arrivals_shuttle2"
+
+/obj/effect/shuttle_landmark/southern_cross/arrivals
 	base_area = /area/space
 	base_turf = /turf/space
 
-/obj/effect/shuttle_landmark/southern_cross/arrivals_station
-	name = "SC Dock 2-C/D"
-	landmark_tag = "arrivals_station"
+/obj/effect/shuttle_landmark/southern_cross/arrivals/offsite/dock1
+	name = "CentCom Dock 2/3"
+	landmark_tag = "arrivals_offsite_dock1"
+	docking_controller = "arrivals_dock_23"
+
+/obj/effect/shuttle_landmark/southern_cross/arrivals/offsite/dock2
+	name = "CentCom Dock 3/4"
+	landmark_tag = "arrivals_offsite_dock2"
+	docking_controller = "arrivals_dock_34"
+
+
+/obj/effect/shuttle_landmark/southern_cross/arrivals/transit
+	base_turf = /turf/space/transit/north
+
+/obj/effect/shuttle_landmark/southern_cross/arrivals/transit/transit1
+	name = "Arrivals Transit 1"
+	landmark_tag = "arrivals_transit1"
+
+
+/obj/effect/shuttle_landmark/southern_cross/arrivals/transit/transit2
+	name = "Arrivals Transit 2"
+	landmark_tag = "arrivals_transit2"
+
+
+/obj/effect/shuttle_landmark/southern_cross/arrivals/station/station1
+	name = "SC Dock 2/3"
+	landmark_tag = "arrivals_station_one"
 	docking_controller = "arrivals_dock"
+
+/obj/effect/shuttle_landmark/southern_cross/arrivals/station/station2
+	name = "SC Dock 1/2"
+	landmark_tag = "arrivals_station_two"
+	docking_controller = "escape_dock"
+
+// CHOMPEdit End
 
 //Escape Pods
 
@@ -371,5 +411,3 @@ ESCAPE_POD(8)
 
 
 // Heist shuttle
-
-
