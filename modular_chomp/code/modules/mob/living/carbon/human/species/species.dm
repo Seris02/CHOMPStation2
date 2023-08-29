@@ -19,6 +19,9 @@
 	var/digi_allowed = FALSE
 	var/vanity_base_fit //when shapeshifting using vanity_copy_to, this allows you to have add something so they can go back to their original species fit
 
+/datum/species/proc/get_belly_default_variant(var/mob/living/carbon/human/H) //here for shapeshifters
+	return vore_belly_default_variant
+
 // Handles non-standard eyes when using a species that utilizes a custom base icon set.
 // Eye data is stored in the head organ, and this needs to be handled specially.
 /datum/species/proc/handle_base_eyes(var/mob/living/carbon/human/H, var/custom_base)
